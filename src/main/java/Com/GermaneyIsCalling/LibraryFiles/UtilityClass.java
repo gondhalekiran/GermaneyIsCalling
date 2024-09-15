@@ -55,7 +55,7 @@ public class UtilityClass {
 		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		File dest = new File(
 				".\\FailedTCScreenshot\\TestCaseID" + TCID
-						+ ".jpg");
+						+ ".png");
 		FileHandler.copy(src, dest);
 	}
 

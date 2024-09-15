@@ -35,17 +35,13 @@ public class LoginTC extends BaseClass {
 	String TCID;
 	SoftAssert soft;
 	Logger log = LogManager.getLogger(LoginTC.class);
-	ExtentReports extent;
+
 	public String sheetName;
 
 	@BeforeClass
 	public void openBrowser() throws EncryptedDocumentException, IOException {
 		sheetName = "LoginFunctional"; // LoginFunctional,LoginUnit
-		DataSupplier.setSheetName(sheetName, 1, 6);
-
-		extent = new ExtentReports();
-		ExtentSparkReporter spark = new ExtentSparkReporter("target/Spark.html");
-		extent.attachReporter(spark);
+		DataSupplier.setSheetName(sheetName, 1, 1);
 	}
 
 	@BeforeMethod
@@ -62,10 +58,6 @@ public class LoginTC extends BaseClass {
 	public void loginTest(String Scenario, String error, String name, String eMail, String password, String toastMsg)
 			throws IOException, InterruptedException {
 
-		extent.createTest("SubmitEnquiryForm").log(Status.PASS,
-				"This is a logging event for MyFirstTest, and it passed!");
-
-		TCID = RandomString.make(2); // ab cd a1 a5 s4
 		// AddProject page method call
 		log.info("Filling Form");
 		// Login page method call
@@ -86,7 +78,7 @@ public class LoginTC extends BaseClass {
 			Reporter.log(Scenario + loginPage.getGICLoginPageErrorMsgLst(driver).toString() + "<==>" + toastMsg, true);
 			soft.assertEquals(loginPage.getGICLoginPageErrorMsgLst(driver), toastMsg);
 		} else {
-			Reporter.log(Scenario + loginPage.getGICLoginPageErrorMsg(driver)+ "<==>" + toastMsg, true);
+			Reporter.log(Scenario + loginPage.getGICLoginPageErrorMsg(driver) + "<==>" + toastMsg, true);
 			soft.assertEquals(loginPage.getGICLoginPageErrorMsg(driver), toastMsg);
 		}
 		soft.assertAll();
@@ -94,20 +86,10 @@ public class LoginTC extends BaseClass {
 
 	@AfterMethod
 	public void logoutFromApp(ITestResult s1, Method m) throws IOException, InterruptedException {
-		// Get the current date and time
-
-		LocalDateTime date = LocalDateTime.now();
-
-		// Define the format pattern
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyyHHmm");
-
-		// Format the date
-		String formattedDate = date.format(formatter);
-
-		// Output the formatted date
-		System.out.println("Formatted Date: " + formattedDate);
-
 		if (s1.getStatus() == ITestResult.FAILURE) {
+			String formattedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.HH.mm.ss"));
+			System.out.println("Formatted Date: " + formattedDate);
+			TCID = RandomString.make(2); // ab cd a1 a5 s4
 			Thread.sleep(5000);
 			UtilityClass.captureSS(driver, TCID + m.getName() + formattedDate); // code to capture SS
 		}
@@ -116,7 +98,7 @@ public class LoginTC extends BaseClass {
 
 	@AfterClass
 	public void closeBrowser() {
-		
+
 		// driver.close();
 	}
 
