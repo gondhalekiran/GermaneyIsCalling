@@ -1,32 +1,23 @@
 package com.GermaneyIsCalling.qa.test.login;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.EncryptedDocumentException;
-import org.testng.ITestResult;
+
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.model.Report;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Com.GermaneyIsCalling.WebPages.Login.GICLoginPage;
 import Com.GermaneyIsCalling.WebPages.SideMenuBar.GICSideMenubar;
 import DataProviders.DataSupplier;
 import LibraryFiles.BaseClass;
-import LibraryFiles.UtilityClass;
-import net.bytebuddy.utility.RandomString;
 
 public class LoginTC extends BaseClass {
 	GICLoginPage loginPage;
@@ -36,25 +27,29 @@ public class LoginTC extends BaseClass {
 	SoftAssert soft;
 	Logger log = LogManager.getLogger(LoginTC.class);
 
-	public String sheetName;
-
-	@BeforeClass
-	public void openBrowser() throws EncryptedDocumentException, IOException {
+	public static String sheetName;
+	static {
 		sheetName = "LoginFunctional"; // LoginFunctional,LoginUnit
 		DataSupplier.setSheetName(sheetName, 1, 1);
 	}
 
-	@BeforeMethod
-	public void loginToApp() throws InterruptedException, IOException {
+	@BeforeClass
+	public void openBrowser() throws EncryptedDocumentException, IOException {
+
 		// for reset soft object for each itertion of @Test
 		initializeBrowser();
 		loginPage = new GICLoginPage(driver);
 		sideMenu = new GICSideMenubar(driver);
+	}
+
+	@BeforeMethod
+	public void loginToApp() throws InterruptedException, IOException {
+
 		soft = new SoftAssert();
 
 	}
 
-	@Test(enabled = true, priority = 1, groups = "Unit", dataProvider = "dataContainer", dataProviderClass = DataSupplier.class)
+	@Test(enabled = true, priority = 1, groups = "Unit", dataProvider = "dataContainer", dataProviderClass = DataProviders.DataSupplier.class)
 	public void loginTest(String Scenario, String error, String name, String eMail, String password, String toastMsg)
 			throws IOException, InterruptedException {
 
@@ -84,17 +79,17 @@ public class LoginTC extends BaseClass {
 		soft.assertAll();
 	}
 
-	@AfterMethod
-	public void logoutFromApp(ITestResult s1, Method m) throws IOException, InterruptedException {
-		if (s1.getStatus() == ITestResult.FAILURE) {
-			String formattedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.HH.mm.ss"));
-			System.out.println("Formatted Date: " + formattedDate);
-			TCID = RandomString.make(2); // ab cd a1 a5 s4
-			Thread.sleep(5000);
-			UtilityClass.captureSS(driver, TCID + m.getName() + formattedDate); // code to capture SS
-		}
-		// sideMenu.getGICSideMenubarLogoutBtn();
-	}
+//	@AfterMethod
+//	public void logoutFromApp(ITestResult s1, Method m) throws IOException, InterruptedException {
+//		if (s1.getStatus() == ITestResult.FAILURE) {
+//			String formattedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.HH.mm.ss"));
+//			System.out.println("Formatted Date: " + formattedDate);
+//			TCID = RandomString.make(2); // ab cd a1 a5 s4
+//			Thread.sleep(5000);
+//			UtilityClass.captureSS(driver, TCID + m.getName() + formattedDate); // code to capture SS
+//		}
+//		// sideMenu.getGICSideMenubarLogoutBtn();
+//	}
 
 	@AfterClass
 	public void closeBrowser() {

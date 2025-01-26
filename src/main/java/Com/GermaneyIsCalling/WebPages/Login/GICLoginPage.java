@@ -4,10 +4,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-
 import org.openqa.selenium.NoSuchElementException;
-import org.apache.poi.hpsf.Array;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -78,7 +75,7 @@ public class GICLoginPage {
 		return errorMsg.getText();
 	}
 
-	public LinkedHashMap<String, String> getAdAddMetaTagsPageAlertMsgErrorMsg(WebDriver driver)
+	public LinkedHashMap<String, String> getGICLoginPageAlertMsgErrorMsg(WebDriver driver)
 			throws InterruptedException {
 		LinkedHashMap<String, String> lmp = new LinkedHashMap<String, String>();
 		lmp.put("AlertMsg", "0");

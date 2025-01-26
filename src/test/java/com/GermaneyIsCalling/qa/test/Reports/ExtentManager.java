@@ -1,12 +1,9 @@
 package com.GermaneyIsCalling.qa.test.Reports;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.regex.Pattern;
 
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -19,7 +16,6 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import LibraryFiles.BaseClass;
-import freemarker.template.SimpleDate;
 
 public class ExtentManager implements ITestListener {
 	ExtentSparkReporter sparkReporter;
@@ -31,7 +27,7 @@ public class ExtentManager implements ITestListener {
 		extent = new ExtentReports();
 		String timeStamp =  LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MMM.YYYY.HH.mm.ss"));
 		repName = "Test-Report-" + timeStamp + ".html";
-		sparkReporter = new ExtentSparkReporter(".\\ExtentReports\\" + repName);
+		sparkReporter = new ExtentSparkReporter(System.getProperty("user.dir")+".\\ExtentReports\\" + repName);
 		sparkReporter.config().setDocumentTitle("Germaney Is Calling Automation Report");
 		sparkReporter.config().setReportName("GIC Functional Testing");
 		sparkReporter.config().setTheme(Theme.DARK);
@@ -85,6 +81,6 @@ public class ExtentManager implements ITestListener {
 	}
 
 	public void onFinish(ITestContext context) {
-		// extent.flush();
+		extent.flush();
 	}
 }
