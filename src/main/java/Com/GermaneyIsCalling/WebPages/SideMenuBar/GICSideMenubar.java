@@ -7,7 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import Com.GermaneyIsCalling.LibraryFiles.UtilityClass;
+import LibraryFiles.UtilityClass;
 
 public class GICSideMenubar {
 	// Step1: Variable declaration

@@ -1,10 +1,8 @@
-package Com.GermaneyIsCalling.LibraryFiles;
+package LibraryFiles;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -50,12 +48,10 @@ public class UtilityClass {
 	// this method is use to get screenshot of pass/fail TC as per requirement and
 	// store it in desired folder
 	public static void captureSS(WebDriver driver, String TCID) throws IOException {
-	
-
 		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		File dest = new File(
 				".\\FailedTCScreenshot\\TestCaseID" + TCID
-						+ ".jpg");
+						+ ".png");
 		FileHandler.copy(src, dest);
 	}
 
