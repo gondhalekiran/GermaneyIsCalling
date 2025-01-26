@@ -3,6 +3,7 @@ package Com.GermaneyIsCalling.WebPages.Login;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.hpsf.Array;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -20,7 +21,7 @@ public class GICLoginPage {
 	@FindBy(xpath = "//button[@type='submit']")
 	private WebElement submitBtn;
 	@FindBy(xpath = "//div[@class='alert alert-danger']/descendant::li")
-	private List<WebElement> ErrorMsgLst;
+	private ArrayList<WebElement> ErrorMsgLst;
 	@FindBy(xpath = "//div[@class='alert alert-danger']/descendant::li")
 	private WebElement ErrorMsg;
 	Actions act;
