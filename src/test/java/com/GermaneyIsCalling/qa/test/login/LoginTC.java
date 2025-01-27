@@ -1,28 +1,31 @@
 package com.GermaneyIsCalling.qa.test.login;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.EncryptedDocumentException;
-
+import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.annotations.AfterClass;
-
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
 import Com.GermaneyIsCalling.WebPages.Login.GICLoginPage;
 import Com.GermaneyIsCalling.WebPages.SideMenuBar.GICSideMenubar;
 import DataProviders.DataSupplier;
 import LibraryFiles.BaseClass;
+import LibraryFiles.UtilityClass;
+import net.bytebuddy.utility.RandomString;
 
 public class LoginTC extends BaseClass {
 	GICLoginPage loginPage;
 	GICSideMenubar sideMenu;
-
 	String TCID;
 	SoftAssert soft;
 	Logger log = LogManager.getLogger(LoginTC.class);
@@ -44,9 +47,7 @@ public class LoginTC extends BaseClass {
 
 	@BeforeMethod
 	public void loginToApp() throws InterruptedException, IOException {
-
 		soft = new SoftAssert();
-
 	}
 
 	@Test(enabled = true, priority = 1, groups = "Unit", dataProvider = "dataContainer", dataProviderClass = DataProviders.DataSupplier.class)
@@ -58,18 +59,20 @@ public class LoginTC extends BaseClass {
 		// Login page method call
 		log.info("Signing In..");
 		loginPage.inpGICLoginPageEmail(eMail);
-		loginPage.inpGICLoginPagePassword(password);
-		Thread.sleep(2000);
+		loginPage.inpGICLoginPagePassword("password");
+		Thread.sleep(200);
 		loginPage.clickGICLoginPageLoginBtn();
 		log.info("Login succcess");
 		Thread.sleep(200);
-
+		/**
+		 * getError or Toast Msg
+		 */
+		LinkedHashMap<String, String> msgErr = loginPage.getGICLoginPageAlertMsgErrorMsg(driver);
+		System.out.println(msgErr);
 		if (Scenario.equals("BothTrue")) {
 			Reporter.log(Scenario + sideMenu.getGICSideMenubarUserName(driver, name) + "<==>" + name, true);
 			soft.assertEquals(sideMenu.getGICSideMenubarUserName(driver, name), name);
-		}
-
-		else if (Scenario.equals("BothFalse")) {
+		} else if (Scenario.equals("BothFalse")) {
 			Reporter.log(Scenario + loginPage.getGICLoginPageErrorMsgLst(driver).toString() + "<==>" + toastMsg, true);
 			soft.assertEquals(loginPage.getGICLoginPageErrorMsgLst(driver), toastMsg);
 		} else {
@@ -78,23 +81,16 @@ public class LoginTC extends BaseClass {
 		}
 		soft.assertAll();
 	}
-
-//	@AfterMethod
-//	public void logoutFromApp(ITestResult s1, Method m) throws IOException, InterruptedException {
-//		if (s1.getStatus() == ITestResult.FAILURE) {
-//			String formattedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.HH.mm.ss"));
-//			System.out.println("Formatted Date: " + formattedDate);
-//			TCID = RandomString.make(2); // ab cd a1 a5 s4
-//			Thread.sleep(5000);
-//			UtilityClass.captureSS(driver, TCID + m.getName() + formattedDate); // code to capture SS
-//		}
-//		// sideMenu.getGICSideMenubarLogoutBtn();
-//	}
-
-	@AfterClass
-	public void closeBrowser() {
-
-		// driver.close();
+	@AfterMethod
+	public void logoutFromApp(ITestResult s1, Method m) throws IOException, InterruptedException {
+		if (s1.getStatus() == ITestResult.FAILURE) {
+			String formattedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.HH.mm.ss"));
+			System.out.println("Formatted Date: " + formattedDate);
+			TCID = RandomString.make(2); // ab cd a1 a5 s4
+			Thread.sleep(200);
+			UtilityClass.captureSS(driver, TCID + m.getName() + formattedDate); // code to capture SS
+		}
+		sideMenu.getGICSideMenubarLogoutBtn();
 	}
 
 }

@@ -8,7 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
-public class DPMethod {
+public class ExcelDPMethod {
 	
 	public static String[][] getSelectiveExcelData(String filepath,String sheetName,int startRow,int endRow ) throws IOException {
 		FileInputStream file = new FileInputStream(filepath);

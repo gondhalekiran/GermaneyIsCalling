@@ -14,6 +14,10 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import LibraryFiles.BaseClass;
 
 public class ExtentManager implements ITestListener {
+	/**
+	 * 1]windows ->preferance->general->network-->direct
+	 * 2]windows->preferance->Maven->click checkbook of all download
+	 */
 	ExtentSparkReporter sparkReporter;
 	ExtentReports extent;
 	ExtentTest test;
@@ -50,9 +54,10 @@ public class ExtentManager implements ITestListener {
 
 	public void onTestFailure(ITestResult result) {
 		test = extent.createTest(result.getTestClass().getName());
-		test.log(Status.WARNING, result.getThrowable().getMessage() + "got fAILED!");
+		test.log(Status.FAIL, result.getThrowable().getMessage() + "got fAILED!");
 		printTestData(result.getParameters());
 		try {
+			/** make webdriver static */
 			String path = new BaseClass().captureSS(result.getName());
 			test.addScreenCaptureFromPath(path);
 		} catch (IOException e) {
@@ -70,13 +75,13 @@ public class ExtentManager implements ITestListener {
 
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
 		test = extent.createTest(result.getTestClass().getName());
-		test.log(Status.PASS, result.getMethod() + "got Successfully Executed");
+		test.log(Status.FAIL, result.getMethod() + "got Successfully Executed");
 		printTestData(result.getParameters());
 	}
 
 	public void onTestFailedWithTimeout(ITestResult result) {
 		test = extent.createTest(result.getTestClass().getName());
-		test.log(Status.PASS, result.getMethod() + "got Successfully Executed");
+		test.log(Status.FAIL, result.getMethod() + "got Successfully Executed");
 		printTestData(result.getParameters());
 	}
 

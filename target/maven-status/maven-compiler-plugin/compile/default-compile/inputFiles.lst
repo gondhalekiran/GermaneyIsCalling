@@ -3,7 +3,8 @@ D:\240828\GermaneyIsCalling\src\main\java\Com\GermaneyIsCalling\WebPages\Login\G
 D:\240828\GermaneyIsCalling\src\main\java\Com\GermaneyIsCalling\WebPages\SideMenuBar\GICSideMenubar.java
 D:\240828\GermaneyIsCalling\src\main\java\Com\GermaneyIsCalling\WebPages\UploadCV\GICUploadCVPage.java
 D:\240828\GermaneyIsCalling\src\main\java\DataProviders\DataSupplier.java
-D:\240828\GermaneyIsCalling\src\main\java\DataProviders\DPMethod.java
+D:\240828\GermaneyIsCalling\src\main\java\DataProviders\ExcelDPMethod.java
 D:\240828\GermaneyIsCalling\src\main\java\LibraryFiles\BaseClass.java
 D:\240828\GermaneyIsCalling\src\main\java\LibraryFiles\UtilityClass.java
+D:\240828\GermaneyIsCalling\src\main\java\Utils\HelperMethods.java
 D:\240828\GermaneyIsCalling\src\main\java\Utils\waitUtils.java

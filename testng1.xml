@@ -3,7 +3,7 @@
 <suite name="Suite">
 <listeners>
 		<listener
-			class-name="com.GermaneyIsCalling.qa.test.Reports.ExtentManager"></listener>
+			class-name="com.Reports.ExtentManager"></listener>
 	</listeners>
   <test name="Test">
     <classes>

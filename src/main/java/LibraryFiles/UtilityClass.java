@@ -18,8 +18,7 @@ public class UtilityClass {
 	// need to pass 1 inputs: key
 	public static String getPFData(String key) throws IOException {
 		FileInputStream file = new FileInputStream(
-				".\\PropertyFile.properties");// property
-																											// file path
+				".\\PropertyFile.properties");// property																									// file path
 		Properties p = new Properties();
 		p.load(file);
 		String value = p.getProperty(key);
@@ -42,9 +41,12 @@ public class UtilityClass {
 	// testing
 	public static void drawBorder(WebDriver driver, WebElement element) {
 		JavascriptExecutor js = ((JavascriptExecutor) driver);
-		js.executeScript("arguments[0].style.border='3px solid red'", element);
+		 js.executeScript("arguments[0].style.border='3px solid red'; arguments[0].style.backgroundColor='yellow';", element);
 	}
-
+	public static void scrollToElement(WebDriver driver, WebElement element) {
+	    JavascriptExecutor js = (JavascriptExecutor) driver;
+	    js.executeScript("arguments[0].scrollIntoView(true);", element);
+	}
 	// this method is use to get screenshot of pass/fail TC as per requirement and
 	// store it in desired folder
 	public static void captureSS(WebDriver driver, String TCID) throws IOException {

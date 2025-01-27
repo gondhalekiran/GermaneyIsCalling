@@ -16,7 +16,7 @@ public class DataSupplier {
 
 	@DataProvider(name = "dataContainer")
 	public String[][] getExcelData() throws IOException {
-		return DPMethod.getSelectiveExcelData(filepath, sheetName, startRow, endRow);
+		return ExcelDPMethod.getSelectiveExcelData(filepath, sheetName, startRow, endRow);
 	}
 
 }
