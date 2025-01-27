@@ -27,7 +27,7 @@ public class GICLoginPage {
 	private List<WebElement> errorMsgLst;
 	@FindBy(xpath = "//div[@class='alert alert-danger']/descendant::li")
 	private WebElement errorMsg;
-	@FindBy(xpath = "//div[@class='alert alert-danger']/descendant::li")
+	@FindBy(xpath = "//div[@class='alert alert-danger']/descendant::ol")
 	private WebElement sweetAlertMsg;
 
 	Actions act;
